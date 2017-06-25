@@ -58,13 +58,10 @@ namespace Wiki_Miner
     //Some constructor magic!
     public WDriver()
     {
-      //ChromeDriverPath = @"C:\Users\The Keymaster\Desktop\Wiki Miner\Wiki Miner\Wiki Miner\bin\Debug\";
-      //Driver = new ChromeDriver(); //ChromeDriverPath);
       IWebDriver Drv = new ChromeDriver();
       Drv.Navigate().GoToUrl("http://www.google.com/");
-      Thread.Sleep(2000);
     }
-    WDriver(string Opt) 
+    public WDriver(string Opt) 
     {
       Driver = new ChromeDriver(Opt);
     }     
