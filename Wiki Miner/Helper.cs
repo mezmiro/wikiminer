@@ -13,22 +13,37 @@ namespace Wiki_Miner
 {
   class Helper
   {
-    IWebDriver Drv;
-
-    Helper(IWebDriver Driver) {
-      Drv = Driver;
+    public WDriver Driver = new WDriver();
+            
+    protected IWebElement WaitForElement(By Locator)
+    {
+            IWebElement Element;
+            try
+            {
+                Element = Driver.CurrentDriver.FindElement(Locator);
+                return Element;
+            }
+            catch
+            {
+                throw new Exception();
+            }
     }
     
-    void WaitForElement(By Locator) { 
-
-    }
-    
-    void WaitForElements(By Locator) { 
-
-    }
+    protected IReadOnlyCollection<IWebElement> WaitForElements(By Locator) {
+            IReadOnlyCollection<IWebElement> Elements;
+            try
+            {
+                Elements = (IReadOnlyCollection<IWebElement>)Driver.CurrentDriver.FindElement(Locator);
+                return Elements;
+            }
+            catch
+            {
+                throw new Exception();
+            }
+        }
 
     //Not sure if/how this is useful exactly.. but it feels right.
-    void WaitForElements(List<By> Locators) { 
+    protected void WaitForElements(List<By> Locators) { 
 
     }
 
@@ -53,13 +68,12 @@ namespace Wiki_Miner
     string ChromeDriverPath;
     int DefaultWaitTime;
     
-    public IWebDriver CurrentDriver { get; set; }
+    public IWebDriver CurrentDriver { get { return Driver; }  set { Driver = value; } }
 
     //Some constructor magic!
     public WDriver()
     {
-      IWebDriver Drv = new ChromeDriver();
-      Drv.Navigate().GoToUrl("http://www.google.com/");
+      Driver = new ChromeDriver();
     }
     public WDriver(string Opt) 
     {
@@ -67,9 +81,7 @@ namespace Wiki_Miner
     }     
 
     public void Dispose() {
-      
       Driver.Quit();
     }
-
   }
 }

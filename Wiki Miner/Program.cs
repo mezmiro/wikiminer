@@ -10,14 +10,12 @@ namespace Wiki_Miner
   {
     static void Main(string[] args)
     {
-      WDriver Test = new WDriver();
 
-      Test.CurrentDriver.Url = "http://www.wikipedia.org/";
+            Navigation Nav = new Navigation();
+            Nav.BaseWikiNavigation();
+            Nav.SearchTag("Testing");
 
-      string t = Console.ReadLine();
-
-      Test.Dispose();
-
+            Nav.Driver.CurrentDriver.Dispose();
     }
   }
 }
